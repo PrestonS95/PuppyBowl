@@ -17,6 +17,14 @@ export const fetchAllPlayers = async () => {
     }
 
 export const fetchSinglePlayer = async (playerId) => {
+    try {
+        const pid = await fetch(`${APIURL}/players/PLAYER-ID`);
+        const result = await response.json();
+        console.log(pid)
+        return pid.id
+    }catch(err){
+        console.error('error', err)
+    }
 
 };
 
