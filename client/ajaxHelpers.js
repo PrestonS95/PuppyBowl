@@ -1,3 +1,5 @@
+import { renderSinglePlayer } from "./renderHelpers";
+
 // Add your cohort name to the cohortName variable below, replacing the 'COHORT-NAME' placeholder
 const cohortName = '2206-FTB-ET-WEB-FT-A';
 // Use the APIURL variable for fetch requests
@@ -8,7 +10,7 @@ export const fetchAllPlayers = async () => {
     try {
         const response = await fetch(`${APIURL}/players`);
         const result = await response.json();
-        console.log(response, result, result.data.players)
+        console.log(response, 'response', result, result.data.players)
         if (result.error) throw result.error;
         return result.data.players;
       } catch (err) {
@@ -18,12 +20,19 @@ export const fetchAllPlayers = async () => {
 
 export const fetchSinglePlayer = async (playerId) => {
     try {
-        const pid = await fetch(`${APIURL}/players/PLAYER-ID`);
+        const response = await fetch(`${APIURL}/players/${playerId}`);
         const result = await response.json();
-        console.log(pid)
-        return pid.id
+        console.log(response, result, 'response, result')
+        
+        console.log(result.data.player)
+        let playerObj = result.data.player
+        console.log(playerObj,'playerobj')
+        renderSinglePlayer(playerObj)
+        return playerObj
+        
     }catch(err){
         console.error('error', err)
+
     }
 
 };
