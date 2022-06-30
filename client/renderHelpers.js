@@ -3,6 +3,7 @@ import { fetchAllPlayers, fetchSinglePlayer } from './ajaxHelpers';
 const playerContainer = document.getElementById('all-players-container');
 const newPlayerFormContainer = document.getElementById('new-player-form');
 
+
 export const renderAllPlayers = (playerList) => {
   // First check if we have any data before trying to render it!
   if (!playerList || !playerList.length) {
@@ -40,10 +41,13 @@ export const renderAllPlayers = (playerList) => {
       const playerId = button.dataset.id
       fetchSinglePlayer(playerId)
       console.log(playerId)
-     
+    
     });
   }
-};
+    
+  }
+
+
 
 export const renderSinglePlayer = (playerObj) => {
   if (!playerObj || !playerObj.id) {
@@ -67,6 +71,17 @@ export const renderSinglePlayer = (playerObj) => {
   `;
 
   playerContainer.innerHTML = pupHTML;
+
+  const returnButtons = document.getElementById('see-all')
+    returnButtons.addEventListener('click', async () => {
+      const players = await fetchAllPlayers()
+      renderAllPlayers(players)
+    
+      renderNewPlayerForm()
+    
+    
+    
+    })
 };
 
 export const renderNewPlayerForm = () => {
