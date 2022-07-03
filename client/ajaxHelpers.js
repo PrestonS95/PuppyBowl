@@ -8,7 +8,7 @@ const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
 
 export const fetchAllPlayers = async () => {
     try {
-        const response = await fetch(`${APIURL}/players`);
+        const response = await fetch(`${APIURL}players`);
         const result = await response.json();
         console.log(response, 'response', result, result.data.players)
         if (result.error) throw result.error;
@@ -20,7 +20,7 @@ export const fetchAllPlayers = async () => {
 
 export const fetchSinglePlayer = async (playerId) => {
     try {
-        const response = await fetch(`${APIURL}/players/${playerId}`);
+        const response = await fetch(`${APIURL}players/${playerId}`);
         const result = await response.json();
         console.log(response, result, 'response, result')
         
@@ -38,7 +38,25 @@ export const fetchSinglePlayer = async (playerId) => {
 };
 
 export const addNewPlayer = async (playerObj) => {
-
+    console.log(playerObj, 'from ajax helper')
+    try {
+        const response = await fetch(
+            `${APIURL}players`,
+        {
+            method:'POST',
+            headers: {
+                'Content-Type':  'application/json',
+            },
+            body: JSON.stringify(playerObj,{
+                name:'',
+                breed: '',
+            }),
+    });
+        const result = await response.json();
+        console.log(result, 'result');
+        }catch(err){
+        console.error('error', err)
+    }
 };
 
 export const removePlayer = async (playerId) => {
