@@ -23,6 +23,7 @@ export const renderAllPlayers = (playerList) => {
         </div>
         <img src="${pup.imageUrl}" alt="photo of ${pup.name} the puppy">
         <button class="detail-button" data-id=${pup.id}>See details</button>
+        <button class="delete-button" data-id=${pup.id}>Delete player?</button>
       </div>
     `;
     playerContainerHTML += pupHTML;
@@ -44,6 +45,15 @@ export const renderAllPlayers = (playerList) => {
     
     });
   }
+  let deleteButtons = [...document.getElementsByClassName('delete-button')];
+  for (let i = 0; i < deleteButtons.length; i++) {
+  const button = deleteButtons[i];
+  button.addEventListener('click', async () => {
+    await removePlayer(button.dataset.id);
+    const players = await fetchAllPlayers();
+    renderAllPlayers(players);
+  });
+} 
     
   }
 
